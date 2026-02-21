@@ -1,4 +1,4 @@
-package com.taptrack.employeeservice.employee.exception;
+package com.taptrack.employeeservice.exception;
 
 import com.taptrack.employeeservice.employee.dto.ErrorCodeDto;
 import com.taptrack.employeeservice.employee.dto.ErrorResponseDto;

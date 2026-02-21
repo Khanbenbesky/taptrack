@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface EmployeeDocumentRepository extends JpaRepository<EmployeeDocument, Long> {
 
-    List<EmployeeDocument> findByEmployeeEmployeeId(String employeeId);
+    List<EmployeeDocument> findByEmployeeId(Long employeeId);
     List<EmployeeDocument> findByEmployeeEmployeeIdAndDocumentType(
             String employeeId, DocumentType documentType);
     List<EmployeeDocument> findByVerifiedFalse();

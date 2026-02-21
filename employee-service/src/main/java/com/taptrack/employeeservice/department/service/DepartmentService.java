@@ -4,7 +4,7 @@ import com.sun.jdi.request.DuplicateRequestException;
 import com.taptrack.employeeservice.department.dto.DepartmentRequestDto;
 import com.taptrack.employeeservice.department.dto.DepartmentResponseDto;
 import com.taptrack.employeeservice.department.entity.Department;
-import com.taptrack.employeeservice.employee.exception.ResourceNotFoundException;
+import com.taptrack.employeeservice.exception.ResourceNotFoundException;
 import com.taptrack.employeeservice.department.mapper.DepartmentMapper;
 import com.taptrack.employeeservice.department.repository.DepartmentRepository;
 import org.slf4j.Logger;

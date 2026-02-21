@@ -4,7 +4,8 @@ import com.taptrack.employeeservice.designation.dto.DesignationRequestDto;
 import com.taptrack.employeeservice.designation.dto.DesignationResponseDto;
 import com.taptrack.employeeservice.department.entity.Department;
 import com.taptrack.employeeservice.designation.entity.Designation;
-import com.taptrack.employeeservice.employee.exception.ResourceNotFoundException;
+import com.taptrack.employeeservice.exception.DuplicateResourceException;
+import com.taptrack.employeeservice.exception.ResourceNotFoundException;
 import com.taptrack.employeeservice.designation.mapper.DesignationMapper;
 import com.taptrack.employeeservice.department.repository.DepartmentRepository;
 import com.taptrack.employeeservice.designation.repository.DesignationRepository;
@@ -39,7 +40,7 @@ public class DesignationService {
         logger.info("Creating designation with code: {}", designationRequestDto.getDesignationCode());
         if (designationRepository.existsByDesignationCodeAndIsDeleteFalse(designationRequestDto.getDesignationCode())) {
             logger.error("Department already exists with code: {}", designationRequestDto.getDesignationCode());
-            throw new RuntimeException("Designation code already exists");
+            throw new DuplicateResourceException("Designation code already exists");
         }
         Department department = departmentRepository.findById(designationRequestDto.getDepartmentId())
                 .orElseThrow(() -> {

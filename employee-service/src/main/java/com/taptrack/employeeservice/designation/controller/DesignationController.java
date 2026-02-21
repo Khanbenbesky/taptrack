@@ -24,7 +24,6 @@ public class DesignationController {
         this.designationService = designationService;
     }
 
-    // CREATE
     @PostMapping
     public ResponseEntity<ApiResponseDto<DesignationResponseDto>> create(
             @RequestBody DesignationRequestDto designationRequestDto) {

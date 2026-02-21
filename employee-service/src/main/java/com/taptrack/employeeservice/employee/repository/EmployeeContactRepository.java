@@ -11,8 +11,8 @@ import java.util.Optional;
 @Repository
 public interface EmployeeContactRepository extends JpaRepository<EmployeeContact, Long> {
 
-    List<EmployeeContact> findByEmployeeEmployeeId(String employeeId);
+    List<EmployeeContact> findByEmployeeEmployeeId(Long employeeId);
     List<EmployeeContact> findByEmployeeEmployeeIdAndContactType(
             String employeeId, ContactType contactType);
-    Optional<EmployeeContact> findByEmployeeEmployeeIdAndIsPrimaryTrue(String employeeId);
+    Optional<EmployeeContact> findByEmployeeEmployeeIdAndIsPrimaryTrue(Long employeeId);
 }
