@@ -1,5 +1,7 @@
-package com.taptrack.employeeservice.employee.entity;
+package com.taptrack.employeeservice.department.entity;
 
+import com.taptrack.employeeservice.designation.entity.Designation;
+import com.taptrack.employeeservice.employee.entity.Employee;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

@@ -1,10 +1,4 @@
-package com.taptrack.employeeservice.employee.dto;
-
-import jakarta.persistence.Column;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
+package com.taptrack.employeeservice.department.dto;
 
 public class DepartmentResponseDto {
 

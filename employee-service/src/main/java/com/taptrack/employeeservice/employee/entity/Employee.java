@@ -1,15 +1,15 @@
 package com.taptrack.employeeservice.employee.entity;
 
+import com.taptrack.employeeservice.department.entity.Department;
+import com.taptrack.employeeservice.designation.entity.Designation;
 import com.taptrack.employeeservice.employee.common.Gender;
+import com.taptrack.employeeservice.shift.entity.Shift;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

@@ -1,6 +1,6 @@
-package com.taptrack.employeeservice.employee.repository;
+package com.taptrack.employeeservice.shift.repository;
 
-import com.taptrack.employeeservice.employee.entity.Shift;
+import com.taptrack.employeeservice.shift.entity.Shift;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

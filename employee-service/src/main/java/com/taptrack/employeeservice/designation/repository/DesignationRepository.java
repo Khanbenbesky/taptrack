@@ -1,6 +1,6 @@
-package com.taptrack.employeeservice.employee.repository;
+package com.taptrack.employeeservice.designation.repository;
 
-import com.taptrack.employeeservice.employee.entity.Designation;
+import com.taptrack.employeeservice.designation.entity.Designation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

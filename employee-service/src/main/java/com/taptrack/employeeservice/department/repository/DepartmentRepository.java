@@ -1,6 +1,6 @@
-package com.taptrack.employeeservice.employee.repository;
+package com.taptrack.employeeservice.department.repository;
 
-import com.taptrack.employeeservice.employee.entity.Department;
+import com.taptrack.employeeservice.department.entity.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

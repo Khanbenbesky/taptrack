@@ -1,9 +1,9 @@
-package com.taptrack.employeeservice.employee.controller;
+package com.taptrack.employeeservice.department.controller;
 
 import com.taptrack.employeeservice.employee.dto.ApiResponseDto;
-import com.taptrack.employeeservice.employee.dto.DepartmentRequestDto;
-import com.taptrack.employeeservice.employee.dto.DepartmentResponseDto;
-import com.taptrack.employeeservice.employee.service.DepartmentService;
+import com.taptrack.employeeservice.department.dto.DepartmentRequestDto;
+import com.taptrack.employeeservice.department.dto.DepartmentResponseDto;
+import com.taptrack.employeeservice.department.service.DepartmentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

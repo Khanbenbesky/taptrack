@@ -1,5 +1,7 @@
-package com.taptrack.employeeservice.employee.entity;
+package com.taptrack.employeeservice.designation.entity;
 
+import com.taptrack.employeeservice.department.entity.Department;
+import com.taptrack.employeeservice.employee.entity.Employee;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -7,7 +9,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * SOLID — Single Responsibility:

@@ -1,4 +1,4 @@
-package com.taptrack.employeeservice.employee.dto;
+package com.taptrack.employeeservice.designation.dto;
 
 public class DesignationRequestDto {
 

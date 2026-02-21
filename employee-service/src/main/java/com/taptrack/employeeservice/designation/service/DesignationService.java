@@ -1,17 +1,13 @@
-package com.taptrack.employeeservice.employee.service;
+package com.taptrack.employeeservice.designation.service;
 
-import com.sun.jdi.request.DuplicateRequestException;
-import com.taptrack.employeeservice.employee.dto.DepartmentRequestDto;
-import com.taptrack.employeeservice.employee.dto.DepartmentResponseDto;
-import com.taptrack.employeeservice.employee.dto.DesignationRequestDto;
-import com.taptrack.employeeservice.employee.dto.DesignationResponseDto;
-import com.taptrack.employeeservice.employee.entity.Department;
-import com.taptrack.employeeservice.employee.entity.Designation;
+import com.taptrack.employeeservice.designation.dto.DesignationRequestDto;
+import com.taptrack.employeeservice.designation.dto.DesignationResponseDto;
+import com.taptrack.employeeservice.department.entity.Department;
+import com.taptrack.employeeservice.designation.entity.Designation;
 import com.taptrack.employeeservice.employee.exception.ResourceNotFoundException;
-import com.taptrack.employeeservice.employee.mapper.DepartmentMapper;
-import com.taptrack.employeeservice.employee.mapper.DesignationMapper;
-import com.taptrack.employeeservice.employee.repository.DepartmentRepository;
-import com.taptrack.employeeservice.employee.repository.DesignationRepository;
+import com.taptrack.employeeservice.designation.mapper.DesignationMapper;
+import com.taptrack.employeeservice.department.repository.DepartmentRepository;
+import com.taptrack.employeeservice.designation.repository.DesignationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.taptrack.employeeservice.employee.common;
+package com.taptrack.employeeservice.designation.comon;
 
 public enum Designation {
     INTERN,

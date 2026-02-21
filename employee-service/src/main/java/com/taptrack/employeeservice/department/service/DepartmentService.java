@@ -1,19 +1,17 @@
-package com.taptrack.employeeservice.employee.service;
+package com.taptrack.employeeservice.department.service;
 
 import com.sun.jdi.request.DuplicateRequestException;
-import com.taptrack.employeeservice.employee.dto.DepartmentRequestDto;
-import com.taptrack.employeeservice.employee.dto.DepartmentResponseDto;
-import com.taptrack.employeeservice.employee.entity.Department;
+import com.taptrack.employeeservice.department.dto.DepartmentRequestDto;
+import com.taptrack.employeeservice.department.dto.DepartmentResponseDto;
+import com.taptrack.employeeservice.department.entity.Department;
 import com.taptrack.employeeservice.employee.exception.ResourceNotFoundException;
-import com.taptrack.employeeservice.employee.mapper.DepartmentMapper;
-import com.taptrack.employeeservice.employee.repository.DepartmentRepository;
+import com.taptrack.employeeservice.department.mapper.DepartmentMapper;
+import com.taptrack.employeeservice.department.repository.DepartmentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class DepartmentService {
