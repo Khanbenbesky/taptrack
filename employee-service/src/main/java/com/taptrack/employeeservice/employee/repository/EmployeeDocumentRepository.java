@@ -8,10 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface EmployeeDocumentRepository extends JpaRepository<EmployeeDocument, Long> {
 
+    Optional<EmployeeDocument> findByEmployeeIdAndId(Long employeeId, Long documentId);
     List<EmployeeDocument> findByEmployeeId(Long employeeId);
     List<EmployeeDocument> findByEmployeeEmployeeIdAndDocumentType(
             String employeeId, DocumentType documentType);

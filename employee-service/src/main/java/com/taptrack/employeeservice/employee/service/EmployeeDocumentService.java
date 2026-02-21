@@ -64,7 +64,7 @@ public class EmployeeDocumentService {
     }
 
     @Transactional(readOnly = true)
-    public List<EmployeeDocumentResponseDto> getEmployeeDocumentsByEmployeeId(Long employeeId) {
+    public List<EmployeeDocumentResponseDto> getDocumentsByEmployeeId(Long employeeId) {
 
         logger.info("Fetching documents for employeeId: {}", employeeId);
         return employeeDocumentRepository.findByEmployeeId(employeeId)
@@ -73,8 +73,16 @@ public class EmployeeDocumentService {
                 .collect(Collectors.toList());
     }
 
-    public EmployeeDocumentResponseDto updateEmployeeDocument(
+    public EmployeeDocumentResponseDto updateEmployeeDocument(Long employeeId,
             Long documentId, EmployeeDocumentRequestDto employeeDocumentRequestDto) {
+
+        logger.info("Updating document with employee id: {}", employeeId);
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> {
+                    logger.error("Employee not found fr updating with id: {}", employeeId);
+                    return new ResourceNotFoundException(
+                            "Employee not found with id: " + employeeId);
+                });
 
         logger.info("Updating document with id: {}", documentId);
         EmployeeDocument document = employeeDocumentRepository.findById(documentId)
@@ -83,6 +91,7 @@ public class EmployeeDocumentService {
                     return new ResourceNotFoundException(
                             "Document not found with id: " + documentId);
                 });
+        document.setEmployee(employee);
         document.setDocumentType(employeeDocumentRequestDto.getDocumentType());
         document.setDocumentNumber(employeeDocumentRequestDto.getDocumentNumber());
         document.setFilePath(employeeDocumentRequestDto.getFilePath());
@@ -112,10 +121,10 @@ public class EmployeeDocumentService {
         return employeeDocumentMapper.toDTO(document);
     }
 
-    public void deleteEmployeeDocument(Long documentId) {
+    public void deleteEmployeeDocument(Long employeeId, Long documentId) {
 
         logger.info("Deleting document with id: {}", documentId);
-        EmployeeDocument document = employeeDocumentRepository.findById(documentId)
+        EmployeeDocument document = employeeDocumentRepository.findByEmployeeIdAndId(employeeId, documentId)
                 .orElseThrow(() -> {
                     logger.error("Document not found for deleting with id: {}", documentId);
                     return new ResourceNotFoundException(
