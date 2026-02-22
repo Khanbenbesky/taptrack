@@ -59,7 +59,7 @@ public class DepartmentController {
     }
 
     @DeleteMapping("/{departmentId}")
-    public ResponseEntity<ApiResponseDto<Void>> deleteStudent(@PathVariable Long departmentId) {
+    public ResponseEntity<ApiResponseDto<Void>> deleteDepartment(@PathVariable Long departmentId) {
         logger.info("REST ENDPOINT request to delete department");
         departmentService.deleteDepartmentById(departmentId);
         return ResponseEntity.ok(ApiResponseDto.success(null));

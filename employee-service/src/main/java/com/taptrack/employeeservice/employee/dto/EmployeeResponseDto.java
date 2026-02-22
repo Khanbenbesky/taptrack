@@ -4,6 +4,7 @@ import com.taptrack.employeeservice.employee.common.Gender;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public class EmployeeResponseDto {
@@ -21,19 +22,32 @@ public class EmployeeResponseDto {
     private String bloodGroup;
     private String profilePhotoUrl;
     private Boolean isActive;
+
+    // Flattened FK info — no nested objects sent to frontend
+    private Long departmentId;
     private String departmentName;
+
+    private Long designationId;
     private String designationName;
+    private String designationGrade;
+
+    private Long shiftId;
     private String shiftName;
+    private LocalTime shiftStart;
+    private LocalTime shiftEnd;
+
+    // Manager summary (null if no manager)
+    private Long managerId;
     private String managerName;
+    private String managerEmployeeId;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private List<EmployeeContactResponseDto> contacts;
-    private List<EmployeeDocumentResponseDto> documents;
 
     public EmployeeResponseDto() {
     }
 
-    public EmployeeResponseDto(Long id, String employeeId, String firstName, String lastName, String fullName, String email, String phone, LocalDate dateOfJoining, LocalDate dateOfBirth, Gender gender, String bloodGroup, String profilePhotoUrl, Boolean isActive, String departmentName, String designationName, String shiftName, String managerName, LocalDateTime createdAt, LocalDateTime updatedAt, List<EmployeeContactResponseDto> contacts, List<EmployeeDocumentResponseDto> documents) {
+    public EmployeeResponseDto(Long id, String employeeId, String firstName, String lastName, String fullName, String email, String phone, LocalDate dateOfJoining, LocalDate dateOfBirth, Gender gender, String bloodGroup, String profilePhotoUrl, Boolean isActive, Long departmentId, String departmentName, Long designationId, String designationName, String designationGrade, Long shiftId, String shiftName, LocalTime shiftStart, LocalTime shiftEnd, Long managerId, String managerName, String managerEmployeeId, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.employeeId = employeeId;
         this.firstName = firstName;
@@ -47,14 +61,20 @@ public class EmployeeResponseDto {
         this.bloodGroup = bloodGroup;
         this.profilePhotoUrl = profilePhotoUrl;
         this.isActive = isActive;
+        this.departmentId = departmentId;
         this.departmentName = departmentName;
+        this.designationId = designationId;
         this.designationName = designationName;
+        this.designationGrade = designationGrade;
+        this.shiftId = shiftId;
         this.shiftName = shiftName;
+        this.shiftStart = shiftStart;
+        this.shiftEnd = shiftEnd;
+        this.managerId = managerId;
         this.managerName = managerName;
+        this.managerEmployeeId = managerEmployeeId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.contacts = contacts;
-        this.documents = documents;
     }
 
     public Long getId() {
@@ -161,12 +181,28 @@ public class EmployeeResponseDto {
         isActive = active;
     }
 
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
+
     public String getDepartmentName() {
         return departmentName;
     }
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    public Long getDesignationId() {
+        return designationId;
+    }
+
+    public void setDesignationId(Long designationId) {
+        this.designationId = designationId;
     }
 
     public String getDesignationName() {
@@ -177,6 +213,22 @@ public class EmployeeResponseDto {
         this.designationName = designationName;
     }
 
+    public String getDesignationGrade() {
+        return designationGrade;
+    }
+
+    public void setDesignationGrade(String designationGrade) {
+        this.designationGrade = designationGrade;
+    }
+
+    public Long getShiftId() {
+        return shiftId;
+    }
+
+    public void setShiftId(Long shiftId) {
+        this.shiftId = shiftId;
+    }
+
     public String getShiftName() {
         return shiftName;
     }
@@ -185,12 +237,44 @@ public class EmployeeResponseDto {
         this.shiftName = shiftName;
     }
 
+    public LocalTime getShiftStart() {
+        return shiftStart;
+    }
+
+    public void setShiftStart(LocalTime shiftStart) {
+        this.shiftStart = shiftStart;
+    }
+
+    public LocalTime getShiftEnd() {
+        return shiftEnd;
+    }
+
+    public void setShiftEnd(LocalTime shiftEnd) {
+        this.shiftEnd = shiftEnd;
+    }
+
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
+
     public String getManagerName() {
         return managerName;
     }
 
     public void setManagerName(String managerName) {
         this.managerName = managerName;
+    }
+
+    public String getManagerEmployeeId() {
+        return managerEmployeeId;
+    }
+
+    public void setManagerEmployeeId(String managerEmployeeId) {
+        this.managerEmployeeId = managerEmployeeId;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -209,22 +293,6 @@ public class EmployeeResponseDto {
         this.updatedAt = updatedAt;
     }
 
-    public List<EmployeeContactResponseDto> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(List<EmployeeContactResponseDto> contacts) {
-        this.contacts = contacts;
-    }
-
-    public List<EmployeeDocumentResponseDto> getDocuments() {
-        return documents;
-    }
-
-    public void setDocuments(List<EmployeeDocumentResponseDto> documents) {
-        this.documents = documents;
-    }
-
     @Override
     public String toString() {
         return "EmployeeResponseDto{" +
@@ -241,14 +309,20 @@ public class EmployeeResponseDto {
                 ", bloodGroup='" + bloodGroup + '\'' +
                 ", profilePhotoUrl='" + profilePhotoUrl + '\'' +
                 ", isActive=" + isActive +
+                ", departmentId=" + departmentId +
                 ", departmentName='" + departmentName + '\'' +
+                ", designationId=" + designationId +
                 ", designationName='" + designationName + '\'' +
+                ", designationGrade='" + designationGrade + '\'' +
+                ", shiftId=" + shiftId +
                 ", shiftName='" + shiftName + '\'' +
+                ", shiftStart=" + shiftStart +
+                ", shiftEnd=" + shiftEnd +
+                ", managerId=" + managerId +
                 ", managerName='" + managerName + '\'' +
+                ", managerEmployeeId='" + managerEmployeeId + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
-                ", contacts=" + contacts +
-                ", documents=" + documents +
                 '}';
     }
 }

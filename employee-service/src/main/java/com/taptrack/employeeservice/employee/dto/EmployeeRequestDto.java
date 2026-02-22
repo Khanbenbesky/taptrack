@@ -16,16 +16,16 @@ public class EmployeeRequestDto {
     private Gender gender;
     private String bloodGroup;
     private String profilePhotoUrl;
-    private Boolean isActive;
     private Long departmentId;
     private Long designationId;
     private Long shiftId;
+    // Optional: null means no manager (top-level employee)
     private Long managerId;
 
     public EmployeeRequestDto() {
     }
 
-    public EmployeeRequestDto(String employeeId, String firstName, String lastName, String email, String phone, LocalDate dateOfJoining, LocalDate dateOfBirth, Gender gender, String bloodGroup, String profilePhotoUrl, Boolean isActive, Long departmentId, Long designationId, Long shiftId, Long managerId) {
+    public EmployeeRequestDto(String employeeId, String firstName, String lastName, String email, String phone, LocalDate dateOfJoining, LocalDate dateOfBirth, Gender gender, String bloodGroup, String profilePhotoUrl, Long departmentId, Long designationId, Long shiftId, Long managerId) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -36,7 +36,6 @@ public class EmployeeRequestDto {
         this.gender = gender;
         this.bloodGroup = bloodGroup;
         this.profilePhotoUrl = profilePhotoUrl;
-        this.isActive = isActive;
         this.departmentId = departmentId;
         this.designationId = designationId;
         this.shiftId = shiftId;
@@ -123,14 +122,6 @@ public class EmployeeRequestDto {
         this.profilePhotoUrl = profilePhotoUrl;
     }
 
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
     public Long getDepartmentId() {
         return departmentId;
     }
@@ -165,7 +156,7 @@ public class EmployeeRequestDto {
 
     @Override
     public String toString() {
-        return "EmployeeRequestDTO{" +
+        return "EmployeeRequestDto{" +
                 "employeeId='" + employeeId + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -176,7 +167,6 @@ public class EmployeeRequestDto {
                 ", gender=" + gender +
                 ", bloodGroup='" + bloodGroup + '\'' +
                 ", profilePhotoUrl='" + profilePhotoUrl + '\'' +
-                ", isActive=" + isActive +
                 ", departmentId=" + departmentId +
                 ", designationId=" + designationId +
                 ", shiftId=" + shiftId +

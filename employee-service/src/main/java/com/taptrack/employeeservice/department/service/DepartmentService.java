@@ -10,10 +10,12 @@ import com.taptrack.employeeservice.department.repository.DepartmentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class DepartmentService {
 
     private final Logger logger = LoggerFactory.getLogger(DepartmentService.class);
