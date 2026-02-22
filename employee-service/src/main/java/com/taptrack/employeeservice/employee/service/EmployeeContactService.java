@@ -10,6 +10,8 @@ import com.taptrack.employeeservice.employee.repository.EmployeeRepository;
 import com.taptrack.employeeservice.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,87 +33,80 @@ public class EmployeeContactService {
         this.employeeContactMapper = employeeContactMapper;
     }
 
-    public EmployeeContactResponseDto createContact(
-            Long employeeId, EmployeeContactRequestDto employeeContactRequestDto) {
+    @Transactional
+    public EmployeeContactResponseDto createEmployeeContact(Long employeeId, EmployeeContactRequestDto dto) {
 
-        logger.info("Creating contact for employeeId: {}", employeeId);
+        logger.info("Creating contact for employeeId={}", employeeId);
 
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> {
-                    logger.error("Employee not found with id: {}", employeeId);
-                    return new ResourceNotFoundException(
-                            "Employee not found with id: " + employeeId);
+                    logger.error("Employee not found: {}", employeeId);
+                    return new ResourceNotFoundException("Employee not found");
                 });
-        EmployeeContact contact = employeeContactMapper.toEntity(employeeContactRequestDto);
+
+        if (Boolean.TRUE.equals(dto.getPrimary())) {
+            employeeContactRepository.findByEmployeeIdAndIsPrimaryTrue(employeeId)
+                    .ifPresent(existing -> {
+                        logger.info("Removing existing primary contact for employeeId={}", employeeId);
+                        existing.setPrimary(false);
+                    });
+        }
+
+        EmployeeContact contact = employeeContactMapper.toEntity(dto);
         contact.setEmployee(employee);
-        employeeContactRepository.save(contact);
-        logger.info("Contact created successfully for employeeId: {}", employeeId);
-        return employeeContactMapper.toDTO(contact);
-    }
-
-
-    @Transactional(readOnly = true)
-    public EmployeeContactResponseDto getContactById(Long contactId) {
-
-        logger.info("Fetching contact with id: {}", contactId);
-        EmployeeContact contact = employeeContactRepository.findById(contactId)
-                .orElseThrow(() -> {
-                    logger.error("Employee Contact not found with id: {}", contactId);
-                    return new ResourceNotFoundException(
-                            "Contact not found with id: " + contactId);
-                });
+        contact = employeeContactRepository.save(contact);
+        logger.info("Contact created successfully id={}", contact.getId());
         return employeeContactMapper.toDTO(contact);
     }
 
     @Transactional(readOnly = true)
-    public List<EmployeeContactResponseDto> getContactsByEmployeeId(Long employeeId) {
+    public Page<EmployeeContactResponseDto> getContactsAllByEmployeeId(Long employeeId, Pageable pageable) {
 
-        logger.info("Fetching contacts for employeeId: {}", employeeId);
-
-        return employeeContactRepository.findByEmployeeEmployeeId(employeeId)
-                .stream()
-                .map(employeeContactMapper::toDTO)
-                .collect(Collectors.toList());
+        logger.info("Fetching contacts for employeeId={}", employeeId);
+        return employeeContactRepository.findByEmployeeId(employeeId, pageable)
+                .map(employeeContactMapper::toDTO);
     }
 
-    public EmployeeContactResponseDto updateContact(
-            Long contactId, EmployeeContactRequestDto employeeContactRequestDto) {
+    @Transactional(readOnly = true)
+    public EmployeeContactResponseDto getContactByEmployeeIdAndContactId(Long employeeId, Long contactId) {
 
-        logger.info("Updating contact with id: {}", contactId);
-        EmployeeContact employeeContact = employeeContactRepository.findById(contactId)
+        logger.info("Fetching contact id={} for employeeId={}", contactId, employeeId);
+        EmployeeContact contact = employeeContactRepository
+                .findByIdAndEmployeeId(contactId, employeeId)
                 .orElseThrow(() -> {
-                    logger.error("Contact not found for updating with id: {}", contactId);
-                    return new ResourceNotFoundException(
-                            "Contact not found with id: " + contactId);
+                    logger.error("Contact not found id={} employeeId={}", contactId, employeeId);
+                    return new ResourceNotFoundException("Contact not found");
                 });
-
-        employeeContact.setContactType(employeeContactRequestDto.getContactType());
-        employeeContact.setContactName(employeeContactRequestDto.getContactName());
-        employeeContact.setContactPhone(employeeContactRequestDto.getContactPhone());
-        employeeContact.setContactEmail(employeeContactRequestDto.getContactEmail());
-        employeeContact.setRelationship(employeeContactRequestDto.getRelationship());
-        employeeContact.setAddressLine1(employeeContactRequestDto.getAddressLine1());
-        employeeContact.setAddressLine2(employeeContactRequestDto.getAddressLine2());
-        employeeContact.setCity(employeeContactRequestDto.getCity());
-        employeeContact.setState(employeeContactRequestDto.getState());
-        employeeContact.setCountry(employeeContactRequestDto.getCountry());
-        employeeContact.setPincode(employeeContactRequestDto.getPincode());
-        employeeContact.setPrimary(employeeContactRequestDto.getPrimary());
-        employeeContactRepository.save(employeeContact);
-        logger.info("Contact updated successfully with id: {}", contactId);
-        return employeeContactMapper.toDTO(employeeContact);
+        return employeeContactMapper.toDTO(contact);
     }
 
-    public void deleteContact(Long contactId) {
+    @Transactional
+    public EmployeeContactResponseDto updateContactByEmployeeIdAndContactId(Long employeeId, Long contactId, EmployeeContactRequestDto dto) {
 
-        logger.info("Deleting contact with id: {}", contactId);
-        EmployeeContact contact = employeeContactRepository.findById(contactId)
-                .orElseThrow(() -> {
-                    logger.error("Contact not found for deleting with id: {}", contactId);
-                    return new ResourceNotFoundException(
-                            "Contact not found for deleting with id: " + contactId);
-                });
+        logger.info("Updating contact id={} for employeeId={}", contactId, employeeId);
+        EmployeeContact contact = employeeContactRepository
+                .findByIdAndEmployeeId(contactId, employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Contact not found"));
+
+        if (Boolean.TRUE.equals(dto.getPrimary())) {
+            employeeContactRepository.findByEmployeeIdAndIsPrimaryTrue(employeeId)
+                    .ifPresent(existing -> existing.setPrimary(false));
+        }
+        employeeContactMapper.updateEntity(contact, dto);
+        logger.info("Contact updated id={}", contactId);
+        return employeeContactMapper.toDTO(contact);
+    }
+
+    @Transactional
+    public void deleteContactByEmployeeIdAndContactId(Long employeeId, Long contactId) {
+
+        logger.info("Deleting contact id={} for employeeId={}", contactId, employeeId);
+
+        EmployeeContact contact = employeeContactRepository
+                .findByIdAndEmployeeId(contactId, employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Contact not found"));
+
         employeeContactRepository.delete(contact);
-        logger.info("Contact deleted successfully with id: {}", contactId);
+        logger.info("Contact deleted id={}", contactId);
     }
 }

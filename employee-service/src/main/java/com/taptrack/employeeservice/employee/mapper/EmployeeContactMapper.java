@@ -9,4 +9,5 @@ import org.mapstruct.Mapper;
 public interface EmployeeContactMapper {
     EmployeeContactResponseDto toDTO(EmployeeContact employeeContact);
     EmployeeContact toEntity(EmployeeContactRequestDto employeeContactRequestDto);
+    void updateEntity(EmployeeContact employeeContact, EmployeeContactRequestDto employeeContactRequestDto);
 }
